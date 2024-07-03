@@ -1,5 +1,6 @@
 ﻿// Controllers/UsersController.cs
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -29,14 +30,16 @@ namespace WebApp.Controllers
 
         [HttpGet("GetUsers")]
         public async Task<ActionResult<IEnumerable<User>>> GetUsers()
-        {
-            return await _context.Users.Select(u => new User
+        { 
+            var res = await _context.Users.Select(u => new User
             {
                 ID = u.ID,
                 ADI = u.ADI,
                 SOYADI = u.SOYADI,
                 KULLANICI_ADI = u.KULLANICI_ADI
             }).ToListAsync();
+
+            return res;
         }
     }
 }
